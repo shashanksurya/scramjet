@@ -24,10 +24,10 @@ public class AppConfig {
 	@Bean(name = "dataSource")
 	public DataSource getDataSource() {
 		BasicDataSource dataSource = new BasicDataSource();
-		dataSource.setDriverClassName("com.mysql.jdbc.Driver");
-		dataSource.setUrl("jdbc:mysql://localhost:3306/scramjet");
-		dataSource.setUsername("root");
-		dataSource.setPassword("root");
+		dataSource.setDriverClassName("org.hsqldb.jdbcDriver");
+		dataSource.setUrl("jdbc:hsqldb:mem:testdb");
+		dataSource.setUsername("sa");
+		dataSource.setPassword("");
 		return dataSource;
 	}
 
@@ -46,7 +46,7 @@ public class AppConfig {
 		Properties properties = new Properties();
 		properties.put("hibernate.show_sql", "true");
 		properties.put("hibernate.dialect",
-				"org.hibernate.dialect.MySQLDialect");
+				"org.hibernate.dialect.HSQLDialect");
 		properties.put("hibernate.format_sql", "true");
 		properties.put("hibernate.enable_lazy_load_no_trans", "true");
 		properties.put("hibernate.hbm2ddl.auto", "create-drop");

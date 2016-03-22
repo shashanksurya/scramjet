@@ -35,31 +35,35 @@ public class UserDAO implements IUserDAO{
 
 	@Override
 	@Transactional
-	public User delete(int id) {
-		Session session = sessionFactory.getCurrentSession();
-		User u = (User) session.get(User.class, new Integer(id));
-		session.delete(u);
-		return u;
-	}
-
-	@Override
-	@Transactional
 	public List<User> listUsers() {
 		Session session = sessionFactory.getCurrentSession();
+		@SuppressWarnings("unchecked")
 		List<User> userlist = session.createQuery("from User").list();
 		return userlist;
 	}
 
 	@Override
 	@Transactional
-	public User getUserByEmail(String email) {
-		Query query = (Query) sessionFactory.getCurrentSession().createQuery(
-				"from User u where str(u.email) = :searchemail");
-		List<User> userlist = query.setParameter("searchemail",email).list(); 
-		if(userlist.size()!= 0){
-		  return userlist.get(0);
+	public User getUserByID(String uuid) {
+		Session session = sessionFactory.getCurrentSession();
+		User user = (User) session.get(User.class,uuid);
+		return user;
+		
+	}
+	
+	@Override
+	@Transactional
+	public User getUserByPhone(long phone) {
+		Query query = sessionFactory.getCurrentSession().createQuery(
+				"from User where phone = :searchbyphone");
+		@SuppressWarnings("unchecked")
+		List<User> userlist = query.setParameter("searchbyphone", phone).list();
+		if(userlist.size()!=0)
+		{
+			return userlist.get(0);
 		}
 		return null;
+		
 	}
 
 }

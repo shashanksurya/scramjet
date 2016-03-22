@@ -12,9 +12,9 @@ public interface IUserDAO {
 
 	public User update(User u);
 
-	public User delete(int id);
-
 	public List<User> listUsers();
+	
+	public User getUserByID(String uuid);
 
-	public User getUserByEmail(String email);
+	User getUserByPhone(long phone);
 }
